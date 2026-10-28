@@ -1,45 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+import CameraScreen from './Screens/CameraScreen';
+import GalleryScreen from './Screens/GalleryScreen';
+import SlideshowScreen from './Screens/SlideshowScreen';
+import SensorsScreen from './Screens/SensorsScreen';
 
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <Tab.Navigator initialRouteName="Sensors">
+        <Tab.Screen
+          name="Camera"
+          component={CameraScreen}
+        />
+        <Tab.Screen
+          name="Sensors"
+          component={SensorsScreen}
+        />
+        <Tab.Screen
+          name="Gallery"
+          component={GalleryScreen}
+        />
+        <Tab.Screen
+          name="Slideshow"
+          component={SlideshowScreen}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
